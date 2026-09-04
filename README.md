@@ -43,7 +43,7 @@ One-time setup: in the repository go to **Settings -> Pages** and set
 **Source** to **GitHub Actions**.
 
 The workflow passes the correct `--baseurl` automatically, so the page works
-both as a project site (`https://<user>.github.io/typebot.github.io/`) and as
-the root site of the `typebot` organisation (`https://typebot.github.io/`)
-after the repository is transferred. After transferring, update `url` in
-`_config.yml` if it changes and the GitHub link in `_includes/footer.html`.
+both as a project site (`https://<user>.github.io/<repo>/`) and as the root
+site of the `typebot-eccv` organisation (`https://typebot-eccv.github.io/`).
+For the root-site URL the repository must live at
+`typebot-eccv/typebot-eccv.github.io`.
