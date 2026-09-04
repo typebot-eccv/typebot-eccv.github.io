@@ -1,0 +1,14 @@
+{% assign bib = site.data.paper.bibtex %}
+{% if bib and bib != "" %}
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <div class="bibtex-header">
+      <h2 class="title">BibTeX</h2>
+      <button id="bibtex-copy" class="button is-small is-rounded" type="button" aria-label="Copy BibTeX">
+        <span class="icon"><i class="far fa-copy"></i></span><span>Copy</span>
+      </button>
+    </div>
+    <pre><code id="bibtex">{{ bib | strip }}</code></pre>
+  </div>
+</section>
+{% endif %}

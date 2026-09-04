@@ -1,0 +1,38 @@
+# Site metadata (used by jekyll-seo-tag for <title>, Open Graph, Twitter cards).
+# Page content itself lives in _data/paper.yml.
+title: "TODO: Paper Title"
+tagline: "ECCV 2026"
+description: "TODO: One-sentence summary of the paper for search engines and link previews."
+url: "https://typebot.github.io"
+baseurl: ""
+lang: en
+
+# Social card. Uncomment and set `twitter.username` to attribute the card to an account.
+twitter:
+  card: summary_large_image
+  # username: your_handle
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      image: /assets/images/teaser.png
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+markdown: kramdown
+sass:
+  style: compressed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - vendor
+  - node_modules
+  - .github
+  - .ruby-version

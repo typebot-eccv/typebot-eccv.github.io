@@ -1,0 +1,15 @@
+{% assign p = site.data.paper %}
+{% if p.abstract and p.abstract != "" %}
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          {{ p.abstract | markdownify }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

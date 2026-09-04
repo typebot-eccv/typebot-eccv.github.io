@@ -1,0 +1,28 @@
+{% assign secs = site.data.paper.sections %}
+{% if secs and secs.size > 0 %}
+<section class="section">
+  <div class="container is-max-desktop">
+    {% for s in secs %}
+    <div class="columns is-centered paper-section">
+      <div class="column is-full-width">
+        {% if s.title and s.title != "" %}
+        <h2 class="title is-3 has-text-centered" id="{{ s.title | slugify }}">{{ s.title }}</h2>
+        {% endif %}
+        {% if s.video and s.video != "" %}
+        <video class="section-media" autoplay muted loop playsinline controls>
+          <source src="{{ s.video | relative_url }}" type="video/mp4">
+        </video>
+        {% elsif s.image and s.image != "" %}
+        <img class="section-media" src="{{ s.image | relative_url }}" alt="{{ s.title }}">
+        {% endif %}
+        {% if s.text and s.text != "" %}
+        <div class="content has-text-justified">
+          {{ s.text | markdownify }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

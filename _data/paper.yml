@@ -1,0 +1,86 @@
+# Single source of truth for the project page. Edit this file; the templates
+# in _includes/ read from it. Leave a field blank ("" or omit it) to hide the
+# corresponding element.
+
+title: "TODO: Paper Title Goes Here"
+venue: "ECCV 2026"
+
+# Authors appear in this order. `affiliations` are 1-based indices into the
+# `affiliations` list below. `equal: true` adds a * (equal contribution).
+authors:
+  - name: "Author One"
+    url: "https://example.com/author-one"
+    affiliations: [1]
+    equal: true
+  - name: "Author Two"
+    url: "https://example.com/author-two"
+    affiliations: [1, 2]
+    equal: true
+  - name: "Author Three"
+    url: ""
+    affiliations: [2]
+
+affiliations:
+  - "Aalto University"
+  - "TODO Institution"
+
+equal_contribution_note: "* Equal contribution"
+
+# Buttons under the author list. Blank -> button hidden.
+links:
+  arxiv: ""
+  pdf: ""
+  supplement: ""
+  code: ""
+  video: ""
+  data: ""
+
+# Teaser shown right under the hero. Prefer a short muted looping mp4.
+# If `video` is blank, `image` is used instead.
+teaser:
+  video: ""
+  image: "assets/images/teaser.png"
+  caption: "TODO: One-line takeaway that a reader gets from the teaser alone."
+
+abstract: |
+  TODO: Paste the abstract here. Markdown is supported. Keep it identical to
+  the camera-ready abstract so search engines and reviewers see the same text.
+
+# Optional results carousel (videos or images). Delete all entries to hide.
+carousel:
+  - image: "assets/images/teaser.png"
+    caption: "TODO result 1"
+  - image: "assets/images/teaser.png"
+    caption: "TODO result 2"
+  - image: "assets/images/teaser.png"
+    caption: "TODO result 3"
+  - image: "assets/images/teaser.png"
+    caption: "TODO result 4"
+
+# Titled sections with a figure and a paragraph. Add as many as needed
+# (Method, Results, Comparisons, Limitations, ...). Delete all to hide.
+sections:
+  - title: "Method"
+    image: "assets/images/teaser.png"
+    text: |
+      TODO: One paragraph describing the pipeline in the figure above.
+  - title: "Results"
+    image: ""
+    text: |
+      TODO: Headline quantitative/qualitative result. Link to the paper for
+      full tables.
+
+# Optional YouTube embed (video ID only, e.g. "dQw4w9WgXcQ"). Blank -> hidden.
+youtube_id: ""
+
+# Optional acknowledgements / related work. Blank -> hidden.
+acknowledgements: |
+  TODO: Funding sources, compute grants, people to thank.
+
+bibtex: |
+  @inproceedings{todo2026paper,
+    title     = {TODO: Paper Title Goes Here},
+    author    = {One, Author and Two, Author and Three, Author},
+    booktitle = {European Conference on Computer Vision (ECCV)},
+    year      = {2026}
+  }

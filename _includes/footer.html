@@ -1,0 +1,27 @@
+{% assign p = site.data.paper %}
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      {% if p.links.pdf and p.links.pdf != "" %}
+      <a class="icon-link" href="{{ p.links.pdf | relative_url }}" aria-label="Paper PDF"><i class="fas fa-file-pdf"></i></a>
+      {% endif %}
+      {% if p.links.code and p.links.code != "" %}
+      <a class="icon-link" href="{{ p.links.code }}" aria-label="Code"><i class="fab fa-github"></i></a>
+      {% endif %}
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Page template adapted from <a href="https://nerfies.github.io">Nerfies</a>.
+            Source available on <a href="https://github.com/namheegordonkim/typebot.github.io">GitHub</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,20 @@
+{% assign t = site.data.paper.teaser %}
+{% if t.video != "" or t.image != "" %}
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      {% if t.video and t.video != "" %}
+      <video id="teaser" autoplay muted loop playsinline height="100%"
+             {% if t.image and t.image != "" %}poster="{{ t.image | relative_url }}"{% endif %}>
+        <source src="{{ t.video | relative_url }}" type="video/mp4">
+      </video>
+      {% else %}
+      <img id="teaser" src="{{ t.image | relative_url }}" alt="{{ site.data.paper.title }} teaser">
+      {% endif %}
+      {% if t.caption and t.caption != "" %}
+      <h2 class="subtitle has-text-centered">{{ t.caption }}</h2>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}

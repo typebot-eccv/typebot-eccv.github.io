@@ -1,0 +1,80 @@
+{% assign p = site.data.paper %}
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">{{ p.title }}</h1>
+          {% if p.venue and p.venue != "" %}
+          <h2 class="subtitle is-4 publication-venue">{{ p.venue }}</h2>
+          {% endif %}
+
+          <div class="is-size-5 publication-authors">
+            {% for a in p.authors %}
+            <span class="author-block">
+              {% if a.url and a.url != "" %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}{% if a.equal %}*{% endif %}<sup>{{ a.affiliations | join: "," }}</sup>{% unless forloop.last %},{% endunless %}
+            </span>
+            {% endfor %}
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            {% for aff in p.affiliations %}
+            <span class="author-block"><sup>{{ forloop.index }}</sup>{{ aff }}{% unless forloop.last %},{% endunless %}</span>
+            {% endfor %}
+          </div>
+          {% assign has_equal = p.authors | where: "equal", true | size %}
+          {% if has_equal > 0 and p.equal_contribution_note %}
+          <div class="is-size-6 has-text-grey publication-note">{{ p.equal_contribution_note }}</div>
+          {% endif %}
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              {% if p.links.pdf and p.links.pdf != "" %}
+              <span class="link-block">
+                <a href="{{ p.links.pdf | relative_url }}" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+                </a>
+              </span>
+              {% endif %}
+              {% if p.links.arxiv and p.links.arxiv != "" %}
+              <span class="link-block">
+                <a href="{{ p.links.arxiv }}" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
+                </a>
+              </span>
+              {% endif %}
+              {% if p.links.supplement and p.links.supplement != "" %}
+              <span class="link-block">
+                <a href="{{ p.links.supplement | relative_url }}" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Supplementary</span>
+                </a>
+              </span>
+              {% endif %}
+              {% if p.links.video and p.links.video != "" %}
+              <span class="link-block">
+                <a href="{{ p.links.video }}" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span>
+                </a>
+              </span>
+              {% endif %}
+              {% if p.links.code and p.links.code != "" %}
+              <span class="link-block">
+                <a href="{{ p.links.code }}" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+                </a>
+              </span>
+              {% endif %}
+              {% if p.links.data and p.links.data != "" %}
+              <span class="link-block">
+                <a href="{{ p.links.data }}" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-database"></i></span><span>Data</span>
+                </a>
+              </span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

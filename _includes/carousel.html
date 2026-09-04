@@ -1,0 +1,26 @@
+{% assign items = site.data.paper.carousel %}
+{% if items and items.size > 0 %}
+<section class="hero is-light is-small" id="results">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        {% for it in items %}
+        <div class="item">
+          {% if it.video and it.video != "" %}
+          <video autoplay muted loop playsinline
+                 {% if it.image and it.image != "" %}poster="{{ it.image | relative_url }}"{% endif %}>
+            <source src="{{ it.video | relative_url }}" type="video/mp4">
+          </video>
+          {% elsif it.image and it.image != "" %}
+          <img src="{{ it.image | relative_url }}" alt="{{ it.caption | default: 'result' }}">
+          {% endif %}
+          {% if it.caption and it.caption != "" %}
+          <p class="has-text-centered carousel-caption">{{ it.caption }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
