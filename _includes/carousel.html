@@ -2,24 +2,33 @@
 {% if items and items.size > 0 %}
 <section class="hero is-light is-small" id="results">
   <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        {% for it in items %}
-        <div class="item">
-          {% if it.video and it.video != "" %}
-          <video autoplay muted loop playsinline
-                 {% if it.image and it.image != "" %}poster="{{ it.image | relative_url }}"{% endif %}>
-            <source src="{{ it.video | relative_url }}" type="video/mp4">
-          </video>
-          {% elsif it.image and it.image != "" %}
-          <img src="{{ it.image | relative_url }}" alt="{{ it.caption | default: 'result' }}">
-          {% endif %}
-          {% if it.caption and it.caption != "" %}
-          <p class="has-text-centered carousel-caption">{{ it.caption }}</p>
-          {% endif %}
+    <div class="container is-max-desktop">
+      <div class="gallery-wrap">
+        <button class="gallery-nav gallery-prev" type="button" aria-label="Previous result">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="gallery" id="results-carousel" tabindex="0" aria-label="Results gallery">
+          {% for it in items %}
+          <figure class="gallery-item">
+            {% if it.video and it.video != "" %}
+            <video muted loop playsinline preload="metadata" class="lazy-video"
+                   {% if it.image and it.image != "" %}poster="{{ it.image | relative_url }}"{% endif %}>
+              <source src="{{ it.video | relative_url }}" type="video/mp4">
+            </video>
+            {% elsif it.image and it.image != "" %}
+            <img src="{{ it.image | relative_url }}" alt="{{ it.caption | default: 'result' }}" loading="lazy" decoding="async">
+            {% endif %}
+            {% if it.caption and it.caption != "" %}
+            <figcaption class="gallery-caption">{{ it.caption }}</figcaption>
+            {% endif %}
+          </figure>
+          {% endfor %}
         </div>
-        {% endfor %}
+        <button class="gallery-nav gallery-next" type="button" aria-label="Next result">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
+      <div class="gallery-dots" aria-hidden="true"></div>
     </div>
   </div>
 </section>

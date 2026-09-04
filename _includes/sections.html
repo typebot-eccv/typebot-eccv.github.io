@@ -9,11 +9,12 @@
         <h2 class="title is-3 has-text-centered" id="{{ s.title | slugify }}">{{ s.title }}</h2>
         {% endif %}
         {% if s.video and s.video != "" %}
-        <video class="section-media" autoplay muted loop playsinline controls>
+        <video class="section-media lazy-video" muted loop playsinline controls preload="metadata"
+               {% if s.image and s.image != "" %}poster="{{ s.image | relative_url }}"{% endif %}>
           <source src="{{ s.video | relative_url }}" type="video/mp4">
         </video>
         {% elsif s.image and s.image != "" %}
-        <img class="section-media" src="{{ s.image | relative_url }}" alt="{{ s.title }}">
+        <img class="section-media" src="{{ s.image | relative_url }}" alt="{{ s.title }}" loading="lazy" decoding="async">
         {% endif %}
         {% if s.text and s.text != "" %}
         <div class="content has-text-justified">
