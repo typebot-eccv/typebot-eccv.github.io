@@ -6,13 +6,15 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">{{ p.title }}</h1>
           {% if p.venue and p.venue != "" %}
-          <h2 class="publication-venue">{{ p.venue }}</h2>
+          <h2 class="publication-venue">
+            {% if p.venue_url and p.venue_url != "" %}<a href="{{ p.venue_url }}">{{ p.venue }}</a>{% else %}{{ p.venue }}{% endif %}
+          </h2>
           {% endif %}
 
           <div class="is-size-5 publication-authors">
             {% for a in p.authors %}
             <span class="author-block">
-              {% if a.url and a.url != "" %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}{% if a.equal %}*{% endif %}<sup>{{ a.affiliations | join: "," }}</sup>{% unless forloop.last %},{% endunless %}
+              {% if a.url and a.url != "" %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}{% if a.equal %}*{% endif %}<sup>{{ a.affiliations | join: "," }}</sup>{% if p.show_emails and a.email and a.email != "" %}<a class="author-email" href="mailto:{{ a.email }}" aria-label="Email {{ a.name }}"><i class="far fa-envelope"></i></a>{% endif %}{% unless forloop.last %},{% endunless %}
             </span>
             {% endfor %}
           </div>

@@ -2,27 +2,41 @@
 # in _includes/ read from it. Leave a field blank ("" or omit it) to hide the
 # corresponding element.
 
-title: "TODO: Paper Title Goes Here"
-venue: "ECCV 2026"
+title: "Generalitve Modeling of How We Type"
+venue: "DexHAND @ ECCV 2026"
+venue_url: "https://hands-workshop.org/workshop2026.html"
 
 # Authors appear in this order. `affiliations` are 1-based indices into the
 # `affiliations` list below. `equal: true` adds a * (equal contribution).
+# Emails are kept here for reference; set `show_emails: true` to render a
+# small envelope icon after each name.
+show_emails: false
 authors:
-  - name: "Author One"
-    url: "https://example.com/author-one"
+  - name: "Nam Hee Kim"
+    url: "https://namheegordonkim.github.io/"
+    email: "namhee.kim@aalto.fi"
     affiliations: [1]
-    equal: true
-  - name: "Author Two"
-    url: "https://example.com/author-two"
-    affiliations: [1, 2]
-    equal: true
-  - name: "Author Three"
-    url: ""
-    affiliations: [2]
+  - name: "Xue Bin Peng"
+    url: "https://xbpeng.github.io/"
+    email: "xbpeng@sfu.ca"
+    affiliations: [2, 3]
+  - name: "Jaakko Lehtinen"
+    url: "https://users.aalto.fi/~lehtinj7/"
+    email: "jaakko.lehtinen@aalto.fi"
+    affiliations: [1, 3]
+  - name: "Perttu Hämäläinen"
+    url: "https://users.aalto.fi/~hamalap5/"
+    email: "perttu.hamalainen@aalto.fi"
+    affiliations: [1]
+  - name: "Antti Oulasvirta"
+    url: "https://users.aalto.fi/~oulasvir/"
+    email: "antti.oulasvirta@aalto.fi"
+    affiliations: [1]
 
 affiliations:
   - "Aalto University"
-  - "TODO Institution"
+  - "Simon Fraser University"
+  - "NVIDIA"
 
 equal_contribution_note: "* Equal contribution"
 
@@ -78,9 +92,9 @@ acknowledgements: |
   TODO: Funding sources, compute grants, people to thank.
 
 bibtex: |
-  @inproceedings{todo2026paper,
-    title     = {TODO: Paper Title Goes Here},
-    author    = {One, Author and Two, Author and Three, Author},
-    booktitle = {European Conference on Computer Vision (ECCV)},
+  @inproceedings{kim2026typing,
+    title     = {Generalitve Modeling of How We Type},
+    author    = {Kim, Nam Hee and Peng, Xue Bin and Lehtinen, Jaakko and H{\"a}m{\"a}l{\"a}inen, Perttu and Oulasvirta, Antti},
+    booktitle = {ECCV 2026 Workshop on Observing and Acting as Dexterous Hands (DexHAND)},
     year      = {2026}
   }
