@@ -204,10 +204,67 @@ video {
   height: 100%;
 }
 
-/* ---------- Results gallery (native scroll-snap) ---------- */
+/* ---------- Results galleries (native scroll-snap) ---------- */
 
-#results .hero-body {
+.gallery-section .hero-body {
   padding: 1.5rem 0;
+}
+
+/* Alternate background so two adjacent galleries read as separate blocks. */
+.gallery-section + .gallery-section {
+  background-color: #fff;
+}
+
+.gallery-section.gallery-accent {
+  background: linear-gradient(180deg, #f3f6fb 0%, #e9eef7 100%);
+}
+
+.gallery-header {
+  padding: 0 1rem 0.75rem;
+}
+
+.gallery-header .title.is-3 {
+  margin-bottom: 0.5rem;
+}
+
+.gallery-badge {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  background: #363636;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.gallery-accent .gallery-badge {
+  background: hsl(204, 86%, 45%);
+}
+
+.gallery-description {
+  max-width: 44rem;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  color: #4a4a4a;
+}
+
+.gallery-description p:last-child {
+  margin-bottom: 0;
+}
+
+.gallery-label {
+  display: block;
+  font-weight: 600;
+  color: #363636;
+}
+
+.gallery-accent .gallery-label {
+  color: hsl(204, 86%, 40%);
+}
+
+.gallery-caption-text {
+  display: block;
 }
 
 .gallery-wrap {
@@ -411,8 +468,12 @@ video {
     margin-top: 3rem;
   }
 
-  #results .hero-body {
+  .gallery-section .hero-body {
     padding: 2rem 1.5rem;
+  }
+
+  .gallery-header {
+    padding: 0 0 1rem;
   }
 
   .gallery {

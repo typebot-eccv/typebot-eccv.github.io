@@ -71,16 +71,50 @@ abstract: |
   TODO: Paste the abstract here. Markdown is supported. Keep it identical to
   the camera-ready abstract so search engines and reviewers see the same text.
 
-# Optional results carousel (videos or images). Delete all entries to hide.
-carousel:
-  - image: "assets/images/teaser.png"
-    caption: "TODO result 1"
-  - image: "assets/images/teaser.png"
-    caption: "TODO result 2"
-  - image: "assets/images/teaser.png"
-    caption: "TODO result 3"
-  - image: "assets/images/teaser.png"
-    caption: "TODO result 4"
+# Result galleries. Each entry becomes its own swipeable carousel with a
+# heading. Fields: id, badge, title, description (markdown), accent (bool,
+# tinted background), items: [{video|image, label, caption}].
+# Delete a gallery to hide it.
+carousels:
+  - id: "styles"
+    badge: "Individual styles"
+    title: "Three users, one sentence"
+    description: |
+      The same prompt, *“Thanks for your help this morning.”*, typed in the
+      style of three different users. Style weights (1, 0, 0), (0, 1, 0) and
+      (0, 0, 1) select one user each.
+    items:
+      - video: "assets/videos/sentence-20_weights-1-0-0.mp4"
+        label: "User 43 · weights (1, 0, 0)"
+        caption: "“Thanks for your help this morning.”"
+      - video: "assets/videos/sentence-20_weights-0-1-0.mp4"
+        label: "User 46 · weights (0, 1, 0)"
+        caption: "“Thanks for your help this morning.”"
+      - video: "assets/videos/sentence-20_weights-0-0-1.mp4"
+        label: "User 18 · weights (0, 0, 1)"
+        caption: "“Thanks for your help this morning.”"
+
+  - id: "interpolations"
+    badge: "Interpolation"
+    title: "Blending typing styles"
+    accent: true
+    description: |
+      None of these users exist. Each video mixes the three users above with
+      the convex weights shown, producing a typing style *between* them.
+      Same prompt as above.
+    items:
+      - video: "assets/videos/sentence-20_weights-0p5-0p5-0.mp4"
+        label: "½ User 43 + ½ User 46 · weights (0.5, 0.5, 0)"
+        caption: "“Thanks for your help this morning.”"
+      - video: "assets/videos/sentence-20_weights-0p5-0-0p5.mp4"
+        label: "½ User 43 + ½ User 18 · weights (0.5, 0, 0.5)"
+        caption: "“Thanks for your help this morning.”"
+      - video: "assets/videos/sentence-20_weights-0-0p5-0p5.mp4"
+        label: "½ User 46 + ½ User 18 · weights (0, 0.5, 0.5)"
+        caption: "“Thanks for your help this morning.”"
+      - video: "assets/videos/sentence-20_weights-0p33-0p33-0p33.mp4"
+        label: "Equal blend of all three · weights (⅓, ⅓, ⅓)"
+        caption: "“Thanks for your help this morning.”"
 
 # Titled sections with a figure and a paragraph. Add as many as needed
 # (Method, Results, Comparisons, Limitations, ...). Delete all to hide.

@@ -1,15 +1,21 @@
 (function () {
   'use strict';
 
-  // Results gallery: native scroll-snap. Buttons and dots are progressive
-  // enhancement; swiping works without any JS.
-  function initGallery() {
-    var gallery = document.getElementById('results-carousel');
+  // Result galleries: native scroll-snap. Buttons and dots are progressive
+  // enhancement; swiping works without any JS. One instance per
+  // .gallery-section on the page.
+  function initGalleries() {
+    var sections = document.querySelectorAll('.gallery-section');
+    Array.prototype.forEach.call(sections, initGallery);
+  }
+
+  function initGallery(section) {
+    var gallery = section.querySelector('.gallery');
     if (!gallery) return;
     var items = Array.prototype.slice.call(gallery.querySelectorAll('.gallery-item'));
-    var prev = document.querySelector('.gallery-prev');
-    var next = document.querySelector('.gallery-next');
-    var dots = document.querySelector('.gallery-dots');
+    var prev = section.querySelector('.gallery-prev');
+    var next = section.querySelector('.gallery-next');
+    var dots = section.querySelector('.gallery-dots');
 
     function itemStride() {
       if (items.length < 2) return gallery.clientWidth;
@@ -114,7 +120,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    initGallery();
+    initGalleries();
     initLazyVideos();
     initBibtexCopy();
   });

@@ -1,13 +1,29 @@
-{% assign items = site.data.paper.carousel %}
+{% comment %}
+Renders every gallery in site.data.paper.carousels. Each gallery:
+  id (slug), badge, title, description (markdown), accent (bool),
+  items: [{video|image, label, caption}].
+{% endcomment %}
+{% for gal in site.data.paper.carousels %}
+{% assign items = gal.items %}
 {% if items and items.size > 0 %}
-<section class="hero is-light is-small" id="results">
+{% assign gid = gal.id | default: forloop.index | slugify %}
+<section class="hero is-light is-small gallery-section {% if gal.accent %}gallery-accent{% endif %}" id="{{ gid }}">
   <div class="hero-body">
     <div class="container is-max-desktop">
+      {% if gal.title and gal.title != "" or gal.description and gal.description != "" %}
+      <div class="gallery-header has-text-centered">
+        {% if gal.badge and gal.badge != "" %}<span class="tag gallery-badge">{{ gal.badge }}</span>{% endif %}
+        {% if gal.title and gal.title != "" %}<h2 class="title is-3">{{ gal.title }}</h2>{% endif %}
+        {% if gal.description and gal.description != "" %}
+        <div class="content gallery-description">{{ gal.description | markdownify }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
       <div class="gallery-wrap">
-        <button class="gallery-nav gallery-prev" type="button" aria-label="Previous result">
+        <button class="gallery-nav gallery-prev" type="button" aria-label="Previous">
           <i class="fas fa-chevron-left"></i>
         </button>
-        <div class="gallery" id="results-carousel" tabindex="0" aria-label="Results gallery">
+        <div class="gallery" tabindex="0" aria-label="{{ gal.title | default: 'Results' }} gallery">
           {% for it in items %}
           <figure class="gallery-item">
             {% if it.video and it.video != "" %}
@@ -18,13 +34,16 @@
             {% elsif it.image and it.image != "" %}
             <img src="{{ it.image | relative_url }}" alt="{{ it.caption | default: 'result' }}" loading="lazy" decoding="async">
             {% endif %}
-            {% if it.caption and it.caption != "" %}
-            <figcaption class="gallery-caption">{{ it.caption }}</figcaption>
+            {% if it.label and it.label != "" or it.caption and it.caption != "" %}
+            <figcaption class="gallery-caption">
+              {% if it.label and it.label != "" %}<span class="gallery-label">{{ it.label }}</span>{% endif %}
+              {% if it.caption and it.caption != "" %}<span class="gallery-caption-text">{{ it.caption }}</span>{% endif %}
+            </figcaption>
             {% endif %}
           </figure>
           {% endfor %}
         </div>
-        <button class="gallery-nav gallery-next" type="button" aria-label="Next result">
+        <button class="gallery-nav gallery-next" type="button" aria-label="Next">
           <i class="fas fa-chevron-right"></i>
         </button>
       </div>
@@ -33,3 +52,4 @@
   </div>
 </section>
 {% endif %}
+{% endfor %}
