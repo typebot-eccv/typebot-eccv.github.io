@@ -1,20 +1,51 @@
 {% assign t = site.data.paper.teaser %}
-{% if t.video != "" or t.image != "" %}
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      {% if t.video and t.video != "" %}
-      <video id="teaser" class="lazy-video" autoplay muted loop playsinline
-             {% if t.image and t.image != "" %}poster="{{ t.image | relative_url }}"{% endif %}>
-        <source src="{{ t.video | relative_url }}" type="video/mp4">
-      </video>
-      {% else %}
-      <img id="teaser" src="{{ t.image | relative_url }}" alt="{{ site.data.paper.title }} teaser" fetchpriority="high" decoding="async">
-      {% endif %}
-      {% if t.caption and t.caption != "" %}
-      <h2 class="subtitle has-text-centered">{{ t.caption }}</h2>
-      {% endif %}
-    </div>
+{% if t.gdrive and t.gdrive != "" %}
+<div class="teaser-block teaser-gdrive">
+  <div class="publication-video">
+    <iframe id="teaser"
+            src="https://drive.google.com/file/d/{{ t.gdrive }}/preview"
+            title="{{ site.data.paper.title }} — video"
+            loading="eager"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
   </div>
-</section>
+  <p class="teaser-caption">
+    {% if t.caption and t.caption != "" %}{{ t.caption }}{% endif %}
+    <a class="teaser-sound" href="https://drive.google.com/file/d/{{ t.gdrive }}/view" target="_blank" rel="noopener">
+      <i class="fas fa-external-link-alt"></i> Open in Google Drive
+    </a>
+  </p>
+</div>
+{% elsif t.youtube and t.youtube != "" %}
+<div class="teaser-block teaser-youtube">
+  <div class="publication-video">
+    <iframe id="teaser"
+            src="https://www.youtube-nocookie.com/embed/{{ t.youtube }}?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist={{ t.youtube }}&amp;playsinline=1&amp;rel=0&amp;modestbranding=1&amp;iv_load_policy=3"
+            title="{{ site.data.paper.title }} — video"
+            loading="eager"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+  </div>
+  <p class="teaser-caption">
+    {% if t.caption and t.caption != "" %}{{ t.caption }}{% endif %}
+    <a class="teaser-sound" href="https://www.youtube.com/watch?v={{ t.youtube }}" target="_blank" rel="noopener">
+      <i class="fas fa-volume-up"></i> Watch with sound on YouTube
+    </a>
+  </p>
+</div>
+{% elsif t.video and t.video != "" %}
+<div class="teaser-block">
+  <video id="teaser" class="lazy-video" autoplay muted loop playsinline
+         {% if t.image and t.image != "" %}poster="{{ t.image | relative_url }}"{% endif %}>
+    <source src="{{ t.video | relative_url }}" type="video/mp4">
+  </video>
+  {% if t.caption and t.caption != "" %}<p class="teaser-caption">{{ t.caption }}</p>{% endif %}
+</div>
+{% elsif t.image and t.image != "" %}
+<div class="teaser-block">
+  <img id="teaser" src="{{ t.image | relative_url }}" alt="{{ site.data.paper.title }} teaser" fetchpriority="high" decoding="async">
+  {% if t.caption and t.caption != "" %}<p class="teaser-caption">{{ t.caption }}</p>{% endif %}
+</div>
 {% endif %}

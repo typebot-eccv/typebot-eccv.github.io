@@ -2,7 +2,15 @@
 layout: default
 ---
 {% include hero.html %}
-{% include teaser.html %}
+{% unless site.data.paper.teaser.above_authors %}
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      {% include teaser.html %}
+    </div>
+  </div>
+</section>
+{% endunless %}
 {% include abstract.html %}
 {% include youtube.html %}
 {% include carousel.html %}

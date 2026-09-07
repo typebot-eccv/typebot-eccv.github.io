@@ -109,8 +109,25 @@ video {
   padding-bottom: 2rem;
 }
 
-.hero.teaser video,
-.hero.teaser img {
+.teaser-block {
+  margin: 0.75rem 0 1.25rem;
+}
+
+/* Inside the hero on phones: bleed edge to edge so the video is as large as
+   the screen allows. */
+.hero .teaser-block {
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.hero .teaser-block .publication-video,
+.hero .teaser-block video,
+.hero .teaser-block img {
+  border-radius: 0 !important;
+}
+
+.teaser-block video,
+.teaser-block img {
   display: block;
   width: 100%;
   height: auto;
@@ -118,10 +135,29 @@ video {
   background: #f5f5f5;
 }
 
-.hero.teaser .subtitle {
-  margin-top: 0.75rem;
-  font-size: 1rem;
+.teaser-caption {
+  margin-top: 0.6rem;
+  padding: 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: #4a4a4a;
+  text-align: center;
+}
+
+.teaser-sound {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-size: 0.85rem;
+  color: #7a7a7a;
+  white-space: nowrap;
+}
+
+.teaser-sound:hover {
+  color: hsl(204, 86%, 53%);
+}
+
+.hero .publication-authors {
+  margin-top: 0.5rem;
 }
 
 /* ---------- Sections ---------- */
@@ -338,8 +374,24 @@ video {
     padding-bottom: 3rem;
   }
 
-  .hero.teaser .subtitle {
-    font-size: 1.25rem;
+  .teaser-block {
+    margin: 1.25rem 0 1.5rem;
+  }
+
+  .hero .teaser-block {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .hero .teaser-block .publication-video,
+  .hero .teaser-block video,
+  .hero .teaser-block img {
+    border-radius: 8px !important;
+  }
+
+  .teaser-caption {
+    font-size: 1.05rem;
+    padding: 0;
   }
 
   .section {

@@ -14,7 +14,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
   <link rel="stylesheet" href="{{ '/assets/css/index.css' | relative_url }}">
 
-  {% if site.data.paper.teaser.video != "" %}
+  {% if site.data.paper.teaser.gdrive and site.data.paper.teaser.gdrive != "" %}
+  <link rel="preconnect" href="https://drive.google.com">
+  <link rel="preconnect" href="https://lh3.googleusercontent.com">
+  {% elsif site.data.paper.teaser.youtube and site.data.paper.teaser.youtube != "" %}
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="preconnect" href="https://www.google.com">
+  {% elsif site.data.paper.teaser.video and site.data.paper.teaser.video != "" %}
   <link rel="preload" as="video" href="{{ site.data.paper.teaser.video | relative_url }}">
   {% endif %}
 </head>

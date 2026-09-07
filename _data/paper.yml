@@ -49,12 +49,23 @@ links:
   video: ""
   data: ""
 
-# Teaser shown right under the hero. Prefer a short muted looping mp4.
-# If `video` is blank, `image` is used instead.
+# Teaser: the first thing a visitor sees.
+# Priority: `gdrive` > `youtube` > `video` > `image`.
+#   gdrive:  Google Drive file ID (the part between /d/ and /view). File must be
+#            shared as "Anyone with the link". Drive's player shows the first
+#            frame with a play button; it cannot autoplay.
+#   youtube: YouTube video ID (the part after v=). Autoplays muted and loops.
+#   video:   local mp4, e.g. assets/videos/teaser.mp4. Autoplays muted and loops.
+#   image:   still fallback; also the social-card image.
+# above_authors: true puts the teaser between the venue line and the author
+# list so it is inside the first phone screen. false puts it after the buttons.
 teaser:
+  gdrive: "1nDvkbQWJSdKKi3tbnyNPvUq6_XpxDycJ"
+  youtube: ""
   video: ""
   image: "assets/images/teaser.png"
-  caption: "TODO: One-line takeaway that a reader gets from the teaser alone."
+  caption: ""
+  above_authors: true
 
 abstract: |
   TODO: Paste the abstract here. Markdown is supported. Keep it identical to
@@ -84,7 +95,8 @@ sections:
       TODO: Headline quantitative/qualitative result. Link to the paper for
       full tables.
 
-# Optional YouTube embed (video ID only, e.g. "dQw4w9WgXcQ"). Blank -> hidden.
+# Optional second YouTube embed further down (e.g. the full talk or a longer
+# narrated video). Video ID only. Blank -> section hidden.
 youtube_id: ""
 
 # Optional acknowledgements / related work. Blank -> hidden.
