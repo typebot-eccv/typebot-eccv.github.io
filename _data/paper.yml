@@ -66,10 +66,15 @@ teaser:
   image: "assets/images/teaser.png"
   caption: ""
   above_authors: true
+  # Still figure shown directly after the video. On phones it scrolls sideways
+  # at `figure_min_width` px instead of shrinking. Blank -> hidden.
+  figure: "assets/images/teaser.png"
+  figure_min_width: 900
+  figure_alt: "Left: t-SNE of style embeddings for 48 training and 3 held-out typists, with stylized generation for a ten-finger, a hunt-and-peck and a right-hand-dominant typist. Right: interpolating between the three styles blends finger use."
+  figure_caption: ""
 
 abstract: |
-  TODO: Paste the abstract here. Markdown is supported. Keep it identical to
-  the camera-ready abstract so search engines and reviewers see the same text.
+  Towards building an accurate proxy of human behavior from large motion data, a key problem is to model rich individual variation across a population of users. Using motion capture data from 20 keyboard typists, we learn and examine representations of distinct typing styles by training a generative model that replicates typing motions based on example clips from individual typists’ histories. Beyond correctly typing unseen target text, our model captures varied movement and finger use patterns, forming a latent space of typing styles that are separable and interpolable. Our findings suggest that individual examples could provide a basis for expressive behavior control in synthesizing individualized human motion.
 
 # Result galleries. Each entry becomes its own swipeable carousel with a
 # heading. Fields: id, badge, title, description (markdown), accent (bool,
@@ -99,9 +104,9 @@ carousels:
     title: "Blending typing styles"
     accent: true
     description: |
-      None of these users exist. Each video mixes the three users above with
-      the convex weights shown, producing a typing style *between* them.
-      Same prompt as above.
+      None of these typists exist. Each video interpolates the style
+      embeddings of the three users above with the convex weights shown,
+      producing a typing style *between* them. Same prompt as above.
     items:
       - video: "assets/videos/sentence-20_weights-0p5-0p5-0.mp4"
         label: "½ User 43 + ½ User 46 · weights (0.5, 0.5, 0)"
@@ -120,14 +125,90 @@ carousels:
 # (Method, Results, Comparisons, Limitations, ...). Delete all to hide.
 sections:
   - title: "Method"
-    image: "assets/images/teaser.png"
+    image: "assets/images/arch.png"
+    image_min_width: 760 # on phones the figure scrolls sideways instead of shrinking below this width
+    image_alt: "Architecture: prompt, buffer, keypress history, motion history and style examples are projected and fed to a transformer denoiser, whose clean latent is decoded into keypress and motion predictions."
     text: |
-      TODO: One paragraph describing the pipeline in the figure above.
+      We treat typing as **conditional trajectory generation**. A latent
+      diffusion model predicts the next window of hand motion and keypress
+      states, conditioned on three things: the *task* (the target prompt and
+      the current text buffer), the recent keypress and motion *history*, and
+      a *style embedding* pooled from a handful of one-second reference clips
+      of the target typist.
+
+      An autoencoder compresses motion-and-keypress windows into latents, and a
+      Transformer denoiser learns to recover clean latents under these
+      conditions. At inference the model runs autoregressively: decode a
+      window, update the text buffer, roll the history forward, repeat.
+      Because style enters only through examples, a new typist can be imitated
+      from a few clips with no parameter updates, and interpolating between two
+      typists' embeddings blends their behavior.
   - title: "Results"
-    image: ""
+    image: "assets/images/interpolation.png"
+    image_alt: "Style interpolation follows both endpoint typists: Jensen-Shannon divergence to typist A rises and to typist B falls as the interpolation weight goes from 0 to 1."
     text: |
-      TODO: Headline quantitative/qualitative result. Link to the paper for
-      full tables.
+      **Interpolating style embeddings blends finger use.** Above, the model
+      types held-out text while mixing typists A and B. As the interpolation
+      weight moves from 0 to 1, the divergence from typist A's finger-use
+      distribution rises and the divergence from typist B's falls, so the
+      blend tracks both endpoints rather than collapsing onto one.
+
+      **Example-based conditioning yields stylized, performant output.**
+      On 24 held-out English and Finnish sentences, one-second reference
+      clips are enough to steer keystroke and movement patterns toward the
+      target typist, and the effect strengthens with more clips
+      (<i>N</i><sub>refs</sub>). Typing demands sequential precision, so we
+      add rejection sampling (RS): sample 64 candidate windows, simulate the
+      resulting text, keep the one with the lowest error. RS cuts the error
+      rate while leaving the style metrics essentially unchanged.
+    # Optional table. columns[].html / rows[].html may contain HTML such as
+    # <sub>. dir: down = lower is better, up = higher is better.
+    # cells: v = mean, sd = std, best: true -> bold. highlight: true tints row.
+    table:
+      corner: "Condition"
+      columns:
+        - html: "UER"
+          dir: down
+        - html: "JSD<sub>F</sub>"
+          dir: down
+        - html: "JSD<sub>FK</sub>"
+          dir: down
+        - html: "SRA@1"
+          dir: up
+      rows:
+        - html: "<i>N</i><sub>refs</sub> = 0"
+          cells:
+            - { v: "0.126", sd: "0.075" }
+            - { v: "0.094", sd: "0.067" }
+            - { v: "0.292", sd: "0.105" }
+            - { v: "0.021", sd: "0.143" }
+        - html: "<i>N</i><sub>refs</sub> = 1"
+          cells:
+            - { v: "0.131", sd: "0.082" }
+            - { v: "0.031", sd: "0.029" }
+            - { v: "0.091", sd: "0.068" }
+            - { v: "0.757", sd: "0.429" }
+        - html: "<i>N</i><sub>refs</sub> = 5"
+          cells:
+            - { v: "0.155", sd: "0.092" }
+            - { v: "0.018", sd: "0.015", best: true }
+            - { v: "0.047", sd: "0.028", best: true }
+            - { v: "0.991", sd: "0.094", best: true }
+        - html: "<i>N</i><sub>refs</sub> = 5 + RS"
+          highlight: true
+          cells:
+            - { v: "0.073", sd: "0.055", best: true }
+            - { v: "0.019", sd: "0.015" }
+            - { v: "0.053", sd: "0.032" }
+            - { v: "0.988", sd: "0.109" }
+      note: |
+        Mean ± standard deviation over 9,216 user–prompt pairs (UER, SRA@1)
+        or over the 48 typists (JSD). **UER**: uncorrected error rate of the
+        final text. **JSD<sub>F</sub>** / **JSD<sub>FK</sub>**: Jensen–Shannon
+        divergence between generated and real finger-use / finger–key
+        distributions. **SRA@1**: top-1 accuracy of recognizing the target
+        typist from generated motion. 100 denoising steps throughout.
+        **Bold** marks the best value per column.
 
 # Optional second YouTube embed further down (e.g. the full talk or a longer
 # narrated video). Video ID only. Blank -> section hidden.

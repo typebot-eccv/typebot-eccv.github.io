@@ -160,6 +160,21 @@ video {
   margin-top: 0.5rem;
 }
 
+/* Still figure under the teaser video. The scroll wrap handles its own bleed,
+   so undo the hero bleed on this block. */
+.hero .teaser-block.teaser-figure-block {
+  margin: 0.25rem 0 1rem;
+}
+
+.teaser-figure-block .section-media {
+  margin-top: 0;
+  border-radius: 0;
+}
+
+.teaser-figure-block .results-table-hint {
+  margin-top: 0.1rem;
+}
+
 /* ---------- Sections ---------- */
 
 .section {
@@ -185,6 +200,26 @@ video {
   height: auto;
   margin: 0.75rem auto 1rem auto;
   border-radius: 6px;
+}
+
+/* Wide diagrams: on phones, scroll sideways at a readable size instead of
+   shrinking to a thumbnail. Desktop shows them at natural width. */
+.section-media-wrap.is-scrollable {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+  scrollbar-width: thin;
+}
+
+.section-media-wrap.is-scrollable .section-media {
+  width: var(--minw, 720px);
+  max-width: none;
+  margin-bottom: 0.25rem;
+}
+
+.section-media-wrap.is-scrollable + .results-table-hint {
+  margin-bottom: 0.75rem;
 }
 
 .publication-video {
@@ -366,6 +401,128 @@ video {
   transform: scale(1.25);
 }
 
+/* ---------- Results table ---------- */
+
+.results-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem -1rem 0.5rem; /* bleed to the phone edge so it hints scrollability */
+  padding: 0 1rem;
+  scrollbar-width: thin;
+}
+
+.results-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 30rem;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+  background: #fff;
+}
+
+.results-table th,
+.results-table td {
+  padding: 0.6rem 0.85rem;
+  text-align: center !important;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.results-table td:not(.row-label),
+.results-table thead th:not(.row-label) {
+  min-width: 5.5rem;
+}
+
+.results-table thead th {
+  border-top: 2px solid #363636;
+  border-bottom: 1px solid #363636;
+  font-weight: 600;
+  color: #363636;
+}
+
+.results-table tbody tr:last-child td,
+.results-table tbody tr:last-child th {
+  border-bottom: 2px solid #363636;
+}
+
+.results-table .row-label {
+  text-align: left !important;
+  font-weight: 500;
+  color: #363636;
+  position: sticky;
+  left: 0;
+  background: inherit;
+  z-index: 1;
+  box-shadow: 2px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.results-table thead .row-label {
+  background: #fff;
+}
+
+.results-table tbody tr {
+  background: #fff;
+}
+
+.results-table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.results-table tbody tr.is-highlight {
+  background: #fff7cc;
+}
+
+.results-table tbody tr.is-highlight .row-label {
+  font-weight: 700;
+}
+
+.results-table .dir {
+  color: #9a9a9a;
+  font-size: 0.85em;
+  margin-left: 0.15em;
+}
+
+.results-table .stat {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.results-table .sd {
+  font-size: 0.75em;
+  color: #8a8a8a;
+  margin-top: 0.1em;
+}
+
+.results-table .is-best .v {
+  font-weight: 800;
+  color: #000;
+}
+
+.results-table .is-best .sd {
+  font-weight: 600;
+  color: #555;
+}
+
+.results-table-hint {
+  display: block;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #9a9a9a;
+  margin-top: 0.35rem;
+}
+
+.results-table-note {
+  font-size: 0.85rem;
+  color: #6a6a6a;
+  margin-top: 0.5rem;
+}
+
+.results-table-note p:last-child {
+  margin-bottom: 0;
+}
+
 /* ---------- BibTeX ---------- */
 
 .bibtex-header {
@@ -451,6 +608,14 @@ video {
     padding: 0;
   }
 
+  .hero .teaser-block.teaser-figure-block {
+    margin: 0.5rem 0 1.25rem;
+  }
+
+  .teaser-figure-block .section-media {
+    border-radius: 6px;
+  }
+
   .section {
     padding: 3rem 1.5rem;
   }
@@ -492,6 +657,66 @@ video {
 
   #BibTeX pre {
     font-size: 0.875rem;
+  }
+
+  .results-table-wrap {
+    margin: 1.25rem 0 0.5rem;
+    padding: 0;
+  }
+
+  .results-table {
+    font-size: 0.95rem;
+    min-width: 0;
+  }
+
+  .results-table {
+    font-size: 1rem;
+    table-layout: fixed;
+  }
+
+  .results-table th,
+  .results-table td {
+    padding: 0.75rem 1rem;
+  }
+
+  .results-table .row-label {
+    width: 22%;
+  }
+
+  .results-table td:not(.row-label),
+  .results-table thead th:not(.row-label) {
+    min-width: 0;
+  }
+
+  /* Wide screens: mean and ± std on one line, like the paper. */
+  .results-table .stat {
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  .results-table .sd {
+    font-size: 0.85em;
+    margin-top: 0;
+    margin-left: 0.5em;
+  }
+
+  .section-media-wrap.is-scrollable {
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  .section-media-wrap.is-scrollable .section-media {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .results-table-note {
+    font-size: 0.9rem;
+  }
+
+  .results-table-hint {
+    display: none;
   }
 
   .footer {

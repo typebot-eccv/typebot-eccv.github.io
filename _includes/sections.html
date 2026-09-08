@@ -14,12 +14,18 @@
           <source src="{{ s.video | relative_url }}" type="video/mp4">
         </video>
         {% elsif s.image and s.image != "" %}
-        <img class="section-media" src="{{ s.image | relative_url }}" alt="{{ s.title }}" loading="lazy" decoding="async">
+        <div class="section-media-wrap{% if s.image_min_width %} is-scrollable{% endif %}"{% if s.image_min_width %} style="--minw: {{ s.image_min_width }}px"{% endif %}>
+          <img class="section-media" src="{{ s.image | relative_url }}" alt="{{ s.image_alt | default: s.title }}" loading="lazy" decoding="async">
+        </div>
+        {% if s.image_min_width %}<span class="results-table-hint" aria-hidden="true">&larr; swipe sideways to see the whole figure &rarr;</span>{% endif %}
         {% endif %}
         {% if s.text and s.text != "" %}
         <div class="content has-text-justified">
           {{ s.text | markdownify }}
         </div>
+        {% endif %}
+        {% if s.table %}
+        {% include table.html table=s.table %}
         {% endif %}
       </div>
     </div>

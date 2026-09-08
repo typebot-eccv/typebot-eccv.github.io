@@ -1,0 +1,41 @@
+{% comment %}
+Usage: {% include table.html table=some_table %}
+table:
+  columns: [{html, dir: up|down}]        # header cells; html may contain <sub>
+  rows:    [{html, highlight, cells: [{v, sd, best}]}]
+  note:    markdown footnote under the table
+{% endcomment %}
+{% assign tb = include.table %}
+{% if tb and tb.rows and tb.rows.size > 0 %}
+<div class="results-table-wrap">
+  <table class="results-table">
+    <thead>
+      <tr>
+        <th class="row-label">{{ tb.corner | default: "" }}</th>
+        {% for c in tb.columns %}
+        <th>
+          {{ c.html }}
+          {% if c.dir == "down" %}<span class="dir" title="lower is better">&darr;</span>{% elsif c.dir == "up" %}<span class="dir" title="higher is better">&uarr;</span>{% endif %}
+        </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in tb.rows %}
+      <tr{% if r.highlight %} class="is-highlight"{% endif %}>
+        <th class="row-label">{{ r.html }}</th>
+        {% for cell in r.cells %}
+        <td{% if cell.best %} class="is-best"{% endif %}>
+          <span class="stat"><span class="v">{{ cell.v }}</span>{% if cell.sd and cell.sd != "" %}<span class="sd">&plusmn;&nbsp;{{ cell.sd }}</span>{% endif %}</span>
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<span class="results-table-hint" aria-hidden="true">&larr; swipe sideways for all columns &rarr;</span>
+{% if tb.note and tb.note != "" %}
+<div class="results-table-note content">{{ tb.note | markdownify }}</div>
+{% endif %}
+{% endif %}

@@ -49,3 +49,12 @@
   {% if t.caption and t.caption != "" %}<p class="teaser-caption">{{ t.caption }}</p>{% endif %}
 </div>
 {% endif %}
+{% if t.figure and t.figure != "" %}
+<div class="teaser-block teaser-figure-block">
+  <div class="section-media-wrap{% if t.figure_min_width %} is-scrollable{% endif %}"{% if t.figure_min_width %} style="--minw: {{ t.figure_min_width }}px"{% endif %}>
+    <img class="section-media teaser-figure" src="{{ t.figure | relative_url }}" alt="{{ t.figure_alt | default: site.data.paper.title }}" fetchpriority="high" decoding="async">
+  </div>
+  {% if t.figure_min_width %}<span class="results-table-hint" aria-hidden="true">&larr; swipe sideways to see the whole figure &rarr;</span>{% endif %}
+  {% if t.figure_caption and t.figure_caption != "" %}<p class="teaser-caption">{{ t.figure_caption }}</p>{% endif %}
+</div>
+{% endif %}
