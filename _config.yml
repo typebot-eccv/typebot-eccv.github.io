@@ -7,6 +7,11 @@ url: "https://typebot-eccv.github.io"
 baseurl: ""
 lang: en
 
+# Google Analytics 4 measurement ID. Injected only in production builds
+# (JEKYLL_ENV=production, which the GitHub Actions workflow sets), so local
+# `jekyll serve` previews are not counted. Blank -> no tag.
+google_analytics: "G-J4MCRKNC72"
+
 # Social card. Uncomment and set `twitter.username` to attribute the card to an account.
 twitter:
   card: summary_large_image
