@@ -2,7 +2,7 @@
 # in _includes/ read from it. Leave a field blank ("" or omit it) to hide the
 # corresponding element.
 
-title: "Generalitve Modeling of How We Type"
+title: "Generative Modeling of How We Type"
 venue: "DexHAND @ ECCV 2026"
 venue_url: "https://hands-workshop.org/workshop2026.html"
 
@@ -220,7 +220,7 @@ acknowledgements: |
 
 bibtex: |
   @inproceedings{kim2026typing,
-    title     = {Generalitve Modeling of How We Type},
+    title     = {Generative Modeling of How We Type},
     author    = {Kim, Nam Hee and Peng, Xue Bin and Lehtinen, Jaakko and H{\"a}m{\"a}l{\"a}inen, Perttu and Oulasvirta, Antti},
     booktitle = {ECCV 2026 Workshop on Observing and Acting as Dexterous Hands (DexHAND)},
     year      = {2026}
